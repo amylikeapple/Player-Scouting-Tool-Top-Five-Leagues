@@ -78,7 +78,7 @@ dfdefense = cleaned_dfs[3][['Rk', 'Player', 'Nation', 'Pos', 'Squad','Comp', 'Ag
        'ShSv', 'Pass', 'Int', 'Tkl+Int', 'Clr', 'Err']]
 
 #Add Poss Stats
-teamposs = pd.read_csv('/Users/amirulrasyid/opt/FBRef Data Top Five/FBRef Database Top Five Leagues - Team Poss.csv')
+teamposs = pd.read_csv('FBRef Database Top Five Leagues - Team Poss.csv')
 
 dfdefensemerge = pd.merge(dfdefense,teamposs, on='Squad',how='left').drop(columns=['Rk_y'])
 
