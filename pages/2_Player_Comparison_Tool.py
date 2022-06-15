@@ -23,11 +23,11 @@ raw_dfs=[]
 #     raw_dfs.append(df)
 
 file_names = [
-    '/FBRef Data Top Five/FBRef Database Top Five Leagues - Shooting.csv',
-    '/FBRef Data Top Five/FBRef Database Top Five Leagues - Passing.csv',
-    '/FBRef Data Top Five/FBRef Database Top Five Leagues - GCA.csv',
-    '/FBRef Data Top Five/FBRef Database Top Five Leagues - Defence.csv',
-    '/FBRef Data Top Five/FBRef Database Top Five Leagues - Poss.csv'
+    'FBRef Database Top Five Leagues - Shooting.csv',
+    'FBRef Database Top Five Leagues - Passing.csv',
+    'FBRef Database Top Five Leagues - GCA.csv',
+    'FBRef Database Top Five Leagues - Defence.csv',
+    'FBRef Database Top Five Leagues - Poss.csv'
 ]
 
 for i in file_names:
