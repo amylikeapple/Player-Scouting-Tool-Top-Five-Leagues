@@ -162,11 +162,11 @@ dfdribble['Prog Carries Dist'] = dfdribble['PrgDist']
 #%%
 df_player = pd.concat(
     [
-        dfshooting[['Player', 'Pos', 'Squad', 'Comp','90s','Gls', 'xG', 'Sh/90', 'xG per Shot']],
-        dfpassing[['Ast', 'xA', 'Att', 'Cmp', 'TotDist', 'KP', 'PPA', 'Prog','Prog Pass Dist']],
-        dfdefensemerge[['Tkl', 'Tkls OOP', 'TklW', 'T_Att 3rd %', 'T_Mid 3rd %', 'T_Def 3rd %']],
-        dfpress[['Press', 'Presses OOP', 'Succ', 'P_Att 3rd %', 'P_Med 3rd %', 'P_Def 3rd %']],
-        dfposs[['Touches', 'Att Pen', 'Prog Receives']],
+        dfshooting[['Player', 'Pos', 'Squad', 'Comp','90s','xG', 'Sh/90', 'xG per Shot']],
+        dfpassing[['xA', 'KP', 'Prog']],
+        dfdefensemerge[['Tkl', 'Tkls OOP', 'T_Att 3rd %']],
+        dfpress[['Press', 'Presses OOP', 'P_Att 3rd %']],
+        dfposs[['Att Pen', 'Att 3rd', 'Prog Receives']],
         dfdribble[['Carries', 'Prog Carries Dist']]
     ],axis=1
 )
@@ -209,33 +209,20 @@ df_player.columns = ['Player Name',
  'Squad',
  'Competition',
  'Games',
- 'Gls',
  'xG',
- 'Shots/90',
- 'xG/Shot',
- 'Ast',
+ 'Sh/90',
+ 'xG per Shot',
  'xA',
- 'Att Passes',
- 'Cmp Passes',
- 'Pass Dist',
- 'Key Passes',
- '18Yrd Passes',
- 'Prog Pass',
- 'Prog Pass Dist',
+ 'KP',
+ 'Prog',
  'Tkl',
  'Tkls OOP',
- 'Tkl Won',
  'T_Att 3rd %',
- 'T_Mid 3rd %',
- 'T_Def 3rd %',
  'Press',
  'Presses OOP',
- 'Succ Presses',
  'P_Att 3rd %',
- 'P_Med 3rd %',
- 'P_Def 3rd %',
- 'Touches',
- 'Att Pen Touches',
+ 'Att Pen',
+ 'Att 3rd',
  'Prog Receives',
  'Carries',
  'Prog Carries Dist']
@@ -246,194 +233,148 @@ for i in list(df_player.columns)[5:]:
     col = i + ' ' + 'Percentile'
     df_player[col] = df_player[i].rank(pct=True)
 
-# %%
-
-#Create App
+#---CREATE APP---
 #%%
 st.set_page_config(
-    page_title='EPL 21/22 Scouting Database',
+    page_title='Scouting Tool',
     layout='wide'
 )
 
-# ----- FILTERS ------
-# st.sidebar.header('Filters')
+st.header('📊 Player Comparison Tool')
 
-top1, top2 = st.columns(2)
+st.subheader('Select 2 players for comparison')
 
-with top1:
-    team = st.multiselect(
-        'Select Team',
-        options=df_player['Squad'].unique(),
-        # default=list(df_player['Squad'].unique())
-    )
+link = '[Go To Player Scouting Tool Instead](https://share.streamlit.io/amylikeapple/player-scouting-tool-top-5-european-leagues/main/Hello.py/⚽_Player_Scouting_Tool)'
+st.markdown(link,unsafe_allow_html=True)
 
-    all_options = st.checkbox('Select All Teams (Uncheck when filtering)',value=True)
+#---FILTERS---
+#%%
 
-    if all_options:
-        team = list(df_player['Squad'].unique())
-
-with top2:
-    league = st.multiselect(
-        'Select League',
-        options=df_player['Competition'].unique(),
-        # default=list(df_player['Squad'].unique())
-    )
-
-    all_options4 = st.checkbox('Select All Leagues (Uncheck when filtering)',value=True)
-
-    if all_options4:
-        league = list(df_player['Competition'].unique())    
-
-left_column, mid_column, right_column = st.columns(3)
+left_column, right_column = st.columns(2)
 
 with left_column:
-    mins = st.number_input(
-        "Minimum 90s Played",
-        min_value=df_player['Games'].min(),
-        max_value=df_player['Games'].max(),
-        value=20.0
+    mets = st.multiselect(
+        "Player 1",
+        options=df_player['Player Name'].unique(),
+        default='João Cancelo'
     )
-
-with mid_column:
-    pos = st.multiselect(
-        "Position",
-        options=df_player['Pos'].unique()
-    )
-
-    all_options3 = st.checkbox('Select All Positions (Uncheck when filtering)',value=True)
-
-    if all_options3:
-        pos=list(df_player['Pos'].unique())
 
 with right_column:
-    mets = st.multiselect(
-        "Player",
-        options=df_player['Player Name'].unique()
-    )
+    mets2 = st.multiselect(
+        "Player 2",
+        options=df_player['Player Name'].unique(),
+        default='Harry Maguire'
+    ) 
 
-    all_options2 = st.checkbox('Select All Players (Uncheck when filtering)',value=True)
-
-    if all_options2:
-        mets=list(df_player['Player Name'].unique())
-
-left_column4, mid_column4, right_column4,col4 = st.columns(4)
-
-with left_column4:
-     percone = st.number_input(
-        "xG per 90 Percentile More Than (min:0.0, max:1.0)",
-        min_value=df_player['xG Percentile'].min(),
-        max_value=df_player['xG Percentile'].max(),
-        value=0.2
-    )   
-
-
-with mid_column4:
-     perctwo = st.number_input(
-        "xA per 90 Percentile More Than (min:0.0, max:1.0)",
-        min_value=df_player['xA Percentile'].min(),
-        max_value=df_player['xA Percentile'].max(),
-        value=0.2
-    )
-
-
-with right_column4:
-     percthree = st.number_input(
-        "Att 3rd Presses Percentile More Than (min:0.0, max:1.0)",
-        min_value=df_player['P_Att 3rd % Percentile'].min(),
-        max_value=df_player['P_Att 3rd % Percentile'].max(),
-        value=0.2
-    )  
-
-with col4:
-     percfour = st.number_input(
-        "Presses Out Of Poss Perc More Than (min:0.0, max:1.0)",
-        min_value=df_player['Presses OOP Percentile'].min(),
-        max_value=df_player['Presses OOP Percentile'].max(),
-        value=0.2
-    )
-
-defaultsetting = st.checkbox('Default ALL Percentiles Setting (Uncheck When Filtering)',value=True)
-if defaultsetting:
-    percone = 0.2
-    perctwo = 0.2
-    percthree = 0.2
-    percfour = 0.2
-
-df_selection = df_player.query(
-    "Squad == @team and Games >= @mins and Pos == @pos and `Player Name` == @mets and `xG Percentile` >= @percone and `xA Percentile` >= @perctwo and `P_Att 3rd % Percentile` >= @percthree and `Presses OOP Percentile` >= @percfour and Competition == @league",
+df_player_one = df_player.query(
+    "`Player Name` == @mets",
     engine='python'
 )
 
-#----- CALCULATE BENCHMARK METRICS -----
-xGper90 = df_player['xG'].quantile(0.90)
-shots90 = df_player['Shots/90'].quantile(0.90)
-xGperShot = str(round(df_player['xG/Shot'].quantile(0.90), 2))
+df_player_two = df_player.query(
+    "`Player Name` == @mets2",
+    engine='python'
+)
+# %%
 
-xAper90 = df_player['xA'].quantile(0.90)
-kp90 = df_player['Key Passes'].quantile(0.90)
-progpass = df_player['Prog Pass'].quantile(0.90)
-
-tkl90 = df_player['Tkl'].quantile(0.90)
-tklsoop = str(round(df_player['Tkls OOP'].quantile(0.90), 2))
-tklatt3rd = str(round(df_player['T_Att 3rd %'].quantile(0.90), 2))
-
-press90 = df_player['Press'].quantile(0.90)
-patt3rd = str(round(df_player['P_Att 3rd %'].quantile(0.90), 2))
-pressoop = str(round(df_player['Presses OOP'].quantile(0.90), 2))
-
-attpentouches = df_player['Att Pen Touches'].quantile(0.90)
-progrec = df_player['Prog Receives'].quantile(0.90)
-carries = df_player['Carries'].quantile(0.90)
-
-# ----- ATTACKING TABLES ------
-
-left_column_1,right_column_1 = st.columns(2)
-
-with left_column_1:
-    st.header('Goal Threat (Per 90 min)')
-    st.text('90th Percentile Benchmarks')
-    st.text(f"xG/90: {xGper90}   Shots/90: {shots90}   xG/Shot: {xGperShot}")
-    st.dataframe(df_selection[list(df_selection.columns)[:9]].drop(columns=['Pos']).sort_values(by=['xG'],ascending=False).style.background_gradient(cmap='Greens').set_precision(2))
-
-buildup = ['Player Name','Squad','Games', 'Competition','xG'] + list(df_selection.columns)[10:18]
-
-with right_column_1:
-    st.header('Build Up (Per 90 min)')
-    st.text('90th Percentile Benchmarks')
-    st.text(f"xA/90: {xAper90}   KP/90: {kp90}   Prog Passes/90: {progpass}")
-    st.dataframe(df_selection[buildup].drop(columns=['18Yrd Passes','Att Passes','Cmp Passes','Pass Dist']).sort_values(by=['xA'],ascending=False).style.background_gradient(cmap='Greens').set_precision(2))
-
-# ----- DEFENSIVE TABLES ------
-
-left_column_2,right_column_2 = st.columns(2)
-
-defending = ['Player Name','Squad','Games','Competition','xG'] + list(df_selection.columns)[18:24]
-pressing = ['Player Name','Squad','Games','Competition','xG'] + list(df_selection.columns)[24:30]
-
-with left_column_2:
-    st.header('Defending (Per 90 min)')
-    st.text('90th Percentile Benchmarks')
-    st.text(f"Tkls/90: {tkl90}   Tkls Out Of Poss/90: {tklsoop}   Tkls in Att 3rd %: {tklatt3rd}")
-    st.dataframe(df_selection[defending].sort_values(by=['Tkls OOP'], ascending=False).style.background_gradient(cmap='Oranges').set_precision(2))
-
-with right_column_2:
-    st.header('Pressing (Per 90 min)')
-    st.text('90th Percentile Benchmarks')
-    st.text(f"Presses/90: {press90}   Presses In Att 3rd: {patt3rd}   Presses Out Of Poss/90: {pressoop}")
-    st.dataframe(df_selection[pressing].sort_values(by=['Presses OOP'],ascending=False).style.background_gradient(cmap='Oranges').set_precision(2))
+st.dataframe(df_player_one.style.set_precision((2)))
+st.dataframe(df_player_two.style.set_precision(2))
 
 
-# ----- POSSESION TABLES ------
-left_column_3,right_column_3 = st.columns(2)
+#---CREATE RADAR CHART---
+#%%
+list1 = list(df_player_one.columns)[22:37]
+columns1 = ['xG per 90 Rank',
+ 'Sh/90 Rank',
+ 'xG per Shot Rank',
+ 'xA per 90 Rank',
+ 'KP per 90 Rank',
+ 'Progessive Passes per 90 Rank',
+ 'Tackles per 90 Rank',
+ 'Tackles OOP Rank',
+ 'Tackles Att 3rd % Rank',
+ 'Presses per 90 Rank',
+ 'Presses OOP Rank',
+ 'Presses Att 3rd % Rank',
+ 'Att Pen Touches per 90 Rank',
+ 'Att 3rd Touches per 90 Rank',
+ 'Progressive Passes Received/90 Rank']
 
-possession = ['Player Name','Squad','Games','Competition','xG'] + list(df_selection.columns)[31:35]
+fig = px.bar_polar(
+    r=[df_player_one[list1[0]].values[0],
+    df_player_one[list1[1]].values[0],
+    df_player_one[list1[2]].values[0],
+    df_player_one[list1[3]].values[0],
+    df_player_one[list1[4]].values[0],
+    df_player_one[list1[5]].values[0],
+    df_player_one[list1[6]].values[0],
+    df_player_one[list1[7]].values[0],
+    df_player_one[list1[8]].values[0],
+    df_player_one[list1[9]].values[0],
+    df_player_one[list1[10]].values[0],
+    df_player_one[list1[11]].values[0],
+    df_player_one[list1[12]].values[0],
+    df_player_one[list1[13]].values[0],
+    df_player_one[list1[14]].values[0],
+    ],
+    theta=columns1,
+    template="plotly_dark",
+    color_discrete_sequence= px.colors.sequential.Oranges,
+    range_r=[0,1]
+)
 
-with left_column_3:
-    st.header('Attacking Position (Per 90 min)')
-    st.text('90th Percentile Benchmarks')
-    st.text(f"Att Pen Touches/90: {attpentouches}   Prog Passes Rec: {progrec}   Carries: {carries}")
-    st.dataframe(df_selection[possession].sort_values(by=['xG'],ascending=False).style.background_gradient(cmap='Blues').set_precision(2))
+list2 = list(df_player_two.columns)[22:37]
+columns2 = ['xG per 90 Rank',
+ 'Sh/90 Rank',
+ 'xG per Shot Rank',
+ 'xA per 90 Rank',
+ 'KP per 90 Rank',
+ 'Progessive Passes per 90 Rank',
+ 'Tackles per 90 Rank',
+ 'Tackles OOP Rank',
+ 'Tackles Att 3rd % Rank',
+ 'Presses per 90 Rank',
+ 'Presses OOP Rank',
+ 'Presses Att 3rd % Rank',
+ 'Att Pen Touches per 90 Rank',
+ 'Att 3rd Touches per 90 Rank',
+ 'Progressive Passes Received/90 Rank']
 
+fig2 = px.bar_polar(
+    r=[df_player_two[list1[0]].values[0],
+    df_player_two[list1[1]].values[0],
+    df_player_two[list1[2]].values[0],
+    df_player_two[list1[3]].values[0],
+    df_player_two[list1[4]].values[0],
+    df_player_two[list1[5]].values[0],
+    df_player_two[list1[6]].values[0],
+    df_player_two[list1[7]].values[0],
+    df_player_two[list1[8]].values[0],
+    df_player_two[list1[9]].values[0],
+    df_player_two[list1[10]].values[0],
+    df_player_two[list1[11]].values[0],
+    df_player_two[list1[12]].values[0],
+    df_player_two[list1[13]].values[0],
+    df_player_two[list1[14]].values[0],
+    ],
+    theta=columns2,
+    template="plotly_dark",
+    color_discrete_sequence= px.colors.sequential.deep,
+    range_r=[0,1]
+)
+
+
+left_column1, right_column1 = st.columns(2)
+with left_column1:
+    st.subheader(mets[0])
+    st.text(df_player_one['Pos'].values[0] + ', ' + df_player_one['Squad'].values[0])
+    st.plotly_chart(fig,use_container_width=True)
+
+with right_column1:
+    st.subheader(mets2[0])
+    st.text(df_player_two['Pos'].values[0] + ', ' + df_player_two['Squad'].values[0])
+    st.plotly_chart(fig2,use_container_width=True)
+# %%
 
 # ---- HIDE STREAMLIT STYLE ----
 hide_st_style = """
@@ -444,24 +385,3 @@ hide_st_style = """
             </style>
             """
 st.markdown(hide_st_style, unsafe_allow_html=True)
-
-# df_selection2 = df_selection.sort_values(by=['xG per 90'],ascending=False)
-
-# fig_player_data = go.Figure(data=[go.Table(columnwidth = [200],
-#     header=dict(values=list(df_selection2.columns)[:8],
-#                 fill_color='wheat',
-#                 align='left'),
-#     cells=dict(values=[df_selection2['Player Name'],df_selection2['Pos'],df_selection2['Squad'],
-#     df_selection2['Games'],df_selection2['Gls'],df_selection2['Sh/90'],df_selection2['xG per Shot'],
-#     df_selection2['xG per 90']],
-#                fill_color='white',
-#                align='left'))
-# ])
-
-# main_column,main2_column=st.columns(2)
-# main_column.plotly_chart(fig_player_data,use_container_width=True)
-
-#Tomorrow
-#Clean up metrics, add position filter, add comparison radar chart
-
-# %%
