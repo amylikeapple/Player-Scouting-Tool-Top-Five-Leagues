@@ -35,40 +35,37 @@ df_player = get_data(url)
 # )
 
 st.header('🔎 Player Scouting Tool')
+st.markdown("""**Help your favourite team find the right player!**""")
 
-with st.expander('⬇️ Click here for a quick guide'):
+with st.expander('🛎️ Click here for a quick guide'):
     st.markdown(
         """
         1) This tool is divided into 5 sections: Attacking, Buildup, Defending, Pressing and Attacking Position.
         
-        2) To find players in a specific league, team or position, select them under the relevant filters and uncheck the "Select All" boxes.
+        2) To find players in a specific league, team or position, utilize the General filters. Remember to untick the "Select All" boxes.
 
-        3) To find players who excel at certain attributes, utilize the percentile filters. Uncheck the "Select All" box.
-        
-            As an example, entering 0.8 would mean you are looking for players in the top 80th percentile and above.
+        3) To find players who excel at certain attributes, utilize the Attribute filters. Untick the "Select All" box.
 
-        4) To reset any filter, check the respective "Select All" boxes.
+        4) To reset any filter, retick the respective "Select All" boxes.
 
-        5) Every section has a violin plot where you can get a quick sense of player percentile ranks within your selected segement. 
+        5) Every section has a violin plot where you can get a quick sense of player percentile ranks.
 
             You have the ability to categorize by Position, Competition or Squad.
 
             There will also be a table of that shows the players' important sub-metrics.
+        -----
+        Not interested in filtering? Scroll down and dive straight into the data :)
+
+        Have fun being a scout & analyst!
+
 
         """
     )
 
-st.markdown(
-    """
-    
-    
-    """
-)
-
 # ----- FILTERS ------
 # st.sidebar.header('Filters')
 
-with st.expander('⬇️ Click here for filters'):
+with st.expander('⬇️ Click here for General Filters'):
     st.markdown("""**General Filters**""")
 
     top1, top2 = st.columns(2)
@@ -132,13 +129,18 @@ with st.expander('⬇️ Click here for filters'):
     st.markdown("""
     
     """)
-    st.markdown("""**Attribute Filters**""")
+with st.expander('🦾 Click here for Attribute Filters'): 
+    st.markdown("""**Attribute Filters** (min value: 0.0, max value: 1.0)""")
+    st.markdown("""Eg: Entering 0.8 would mean you are looking for players in the top 80th percentile and above.""")
+    st.markdown("""
+    
+    """)
 
     left_column4, mid_column4, right_column4,col4 = st.columns(4)
 
     with left_column4:
         percone = st.number_input(
-            "xG per 90 Percentile More Than (min:0.0, max:1.0)",
+            "xG per 90 Percentile More Than",
             min_value=df_player['xG Percentile'].min(),
             max_value=df_player['xG Percentile'].max(),
             value=0.2
@@ -147,7 +149,7 @@ with st.expander('⬇️ Click here for filters'):
 
     with mid_column4:
         perctwo = st.number_input(
-            "xA per 90 Percentile More Than (min:0.0, max:1.0)",
+            "xA per 90 Percentile More Than",
             min_value=df_player['xA Percentile'].min(),
             max_value=df_player['xA Percentile'].max(),
             value=0.2
@@ -156,7 +158,7 @@ with st.expander('⬇️ Click here for filters'):
 
     with right_column4:
         percthree = st.number_input(
-            "Att 3rd Presses Percentile More Than (min:0.0, max:1.0)",
+            "Att 3rd Presses Percentile More Than",
             min_value=df_player['P_Att 3rd % Percentile'].min(),
             max_value=df_player['P_Att 3rd % Percentile'].max(),
             value=0.2
@@ -164,7 +166,7 @@ with st.expander('⬇️ Click here for filters'):
 
     with col4:
         percfour = st.number_input(
-            "Presses Out Of Poss Perc More Than (min:0.0, max:1.0)",
+            "Presses Out Of Poss Perc More Than",
             min_value=df_player['Presses OOP Percentile'].min(),
             max_value=df_player['Presses OOP Percentile'].max(),
             value=0.2
@@ -210,6 +212,17 @@ carries = df_player['Carries'].quantile(0.90)
 
 st.header('Goal Threat (Per 90 min)')
 st.markdown("""**xG/90 Percentiles in Big 5 Leagues**""")
+st.markdown("""
+            Graph Tips:
+
+            1) Double click on a legend to focus on one category.
+            2) On mobile & zoomed in by accident? Double tap on the chart to reset zoom.
+            3) Be patient, the graph will load :)
+
+""")
+st.markdown("""
+
+""")
 fila = st.selectbox(
     "Categorize xG by:",
     options=['Pos','Competition','Squad'],
@@ -222,9 +235,25 @@ st.plotly_chart(fig, use_container_width=True)
 attcol1,attcol2,attcol3 = st.columns([1,2,1])
 
 with attcol2:
-    st.markdown("""**90th Percentile Benchmarks**""")
+    st.markdown("""
+    
+        **Deeper Goal Threat Statistics**
+        
+        90th percentile benchmarks for reference:
+    
+    """)
     st.text(f"xG/90: {xGper90}  Shots/90: {shots90}  xG/Shot: {xGperShot}")
     st.dataframe(df_selection[list(df_selection.columns)[:9]].drop(columns=['Competition']).sort_values(by=['xG'],ascending=False).style.background_gradient(cmap='Greens').set_precision(2))
+
+    with st.expander('Metrics Explanation'):
+        st.markdown(
+            """
+            **xG:** Expected Goals per 90 mins. 
+
+            **xG/Shot:** How much xG every shot generates. This is a good indication of how potent at finishing the player is.
+
+            """
+        )   
 
 # left_column_1,right_column_1 = st.columns(2)
 
@@ -258,9 +287,29 @@ st.plotly_chart(fig2, use_container_width=True)
 bucol1,bucol2,bucol3 = st.columns([1,2,1])
 
 with bucol2:
-    st.markdown("""**90th Percentile Benchmarks**""")
+    st.markdown("""
+    
+        **Deeper Build Up Statistics**
+        
+        90th percentile benchmarks for reference:
+    
+    """)
     st.text(f"xA/90: {xAper90}  KP/90: {kp90}  Prog Passes/90: {progpass}")
     st.dataframe(df_selection[buildup].drop(columns=['18Yrd Passes','Att Passes','Cmp Passes','Pass Dist']).sort_values(by=['xA'],ascending=False).style.background_gradient(cmap='Greens').set_precision(2))
+
+    with st.expander('Metrics Explanation'):
+        st.markdown(
+            """
+            **xA:** Expected Assists per 90 mins. 
+
+            **Key Passes:** Passes made that directly led to a shot per 90 mins.
+
+            **Prog Pass:** Passes made that moved more than 18 yards per 90 mins.
+
+            **Prog Pass Dist:** Total distance of progressive passes, a good indicator of how long the team plays.
+
+            """
+        )
 
 # with right_column_1:
 #     st.header('Build Up (Per 90 min)')
@@ -286,9 +335,24 @@ st.plotly_chart(fig3, use_container_width=True)
 defcol1,defcol2,defcol3 = st.columns([1,2,1])
 
 with defcol2:
-    st.markdown("""**90th Percentile Benchmarks**""")
+    st.markdown("""
+    
+        **Deeper Defensive Statistics**
+        
+        90th percentile benchmarks for reference:
+    
+    """)
     st.text(f"Tkls/90: {tkl90}  Tkls Out Of Poss/90: {tklsoop}  Tkls in Att 3rd %: {tklatt3rd}")
     st.dataframe(df_selection[defending].sort_values(by=['Tkls OOP'], ascending=False).style.background_gradient(cmap='Oranges',subset=['xG','Tkl','Tkls OOP','Tkl Won','T_Att 3rd %','T_Mid 3rd %']).set_precision(2))
+    with st.expander('Metrics Explanation'):
+        st.markdown(
+            """
+            **Tkls OOP:** Number of tackles made per 90 min when the team is out of possession. This evens out lesser Tkls/90 numbers for dominant teams.
+
+            **T_Att 3rd %:** Percentage of tackles made that were in the Att 3rd. A good measure of the high press, which is a hallmark of the modern game and an effective way of defending.
+            
+            """
+        )
 
 # left_column_2,right_column_2 = st.columns(2)
 
@@ -321,9 +385,25 @@ st.plotly_chart(fig4, use_container_width=True)
 presscol1,presscol2,presscol3 = st.columns([1,2,1])
 
 with presscol2:
-    st.markdown("""**90th Percentile Benchmarks**""")
+    st.markdown("""
+    
+        **Deeper Pressing Statistics**
+        
+        90th percentile benchmarks for reference:
+    
+    """)
     st.text(f"Presses/90: {press90}  Presses In Att 3rd: {patt3rd}  Presses Out Of Poss/90: {pressoop}")
     st.dataframe(df_selection[pressing].sort_values(by=['Presses OOP'],ascending=False).style.background_gradient(cmap='Oranges',subset=['xG','Press','Presses OOP','Succ Presses','P_Att 3rd %','P_Med 3rd %']).set_precision(2))
+    with st.expander('Metrics Explanation'):
+        st.markdown(
+            """
+            **Presses OOP:** Number of presses made per 90 min when the team is out of possession. This evens out lesser Presses/90 numbers for dominant teams.
+
+            **P_Att 3rd %:** Percentage of presses made that were in the Att 3rd. A good measure of high pressing, which is a hallmark of the modern game and an effective way of defending.
+
+            
+            """
+        )
 
 
 # ----- POSSESION TABLES ------
@@ -343,9 +423,28 @@ st.plotly_chart(fig5, use_container_width=True)
 posscol1,posscol2,posscol3 = st.columns([1,2,1])
 
 with posscol2:
-    st.markdown("""**90th Percentile Benchmarks**""")
+    st.markdown("""
+    
+        **Deeper Attacking Position Statistics**
+        
+        90th percentile benchmarks for reference:
+    
+    """)
     st.text(f"Att Pen Touches/90: {attpentouches}  Prog Passes Rec: {progrec}  Carries: {carries}")
     st.dataframe(df_selection[possession].sort_values(by=['Att Pen Touches'],ascending=False).style.background_gradient(cmap='Blues').set_precision(2))
+    with st.expander('Metrics Explanation'):
+        st.markdown(
+            """
+            **Att Pen Touches:** Number of touches made in the penalty box per 90 min
+
+            **Prog Receives:** Number to passes received per 90 in a position that moves play up the field. A good measure of attacking position.
+
+            **Carries:** Actions that move the ball forward.
+
+            **Prog Carries Dist:** Total distance of progressive carries.
+            
+            """
+        )
 # left_column_3,right_column_3 = st.columns(2)
 
 # with left_column_3:
