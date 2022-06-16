@@ -217,6 +217,7 @@ st.markdown("""
 
             1) Double click on a legend to focus on one category.
             2) On mobile & zoomed in by accident? Double tap on the chart to reset zoom.
+            3) Hover over the dots for the player name.
             3) Be patient, the graph will load :)
 
 """)
