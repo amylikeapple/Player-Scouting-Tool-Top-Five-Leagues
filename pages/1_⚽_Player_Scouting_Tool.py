@@ -9,7 +9,6 @@ import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 import matplotlib.pyplot as plt
-import statsmodels.api as sm
 
 st.set_page_config(
     page_title='EPL 21/22 Scouting Database',
