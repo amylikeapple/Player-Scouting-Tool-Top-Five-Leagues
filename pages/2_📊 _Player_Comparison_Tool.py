@@ -244,7 +244,7 @@ st.header('📊 Player Comparison Tool')
 
 st.subheader('Select 2 players for comparison')
 
-link = '[Go To Player Scouting Tool Instead](https://share.streamlit.io/amylikeapple/player-scouting-tool-top-5-european-leagues/main/Hello.py/⚽_Player_Scouting_Tool)'
+link = '[Go To Player Scouting Tool Instead](https://share.streamlit.io/amylikeapple/player-scouting-tool-top-five-leagues/main/Hello.py/Player_Scouting_Tool)'
 st.markdown(link,unsafe_allow_html=True)
 
 #---FILTERS---
