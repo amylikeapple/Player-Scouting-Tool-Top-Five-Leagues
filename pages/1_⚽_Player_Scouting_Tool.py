@@ -406,7 +406,7 @@ with st.expander('⬇️ Click here for filters'):
         percthree = 0.2
         percfour = 0.2
 
-link = '[Go To Player Comparison Tool Instead](https://share.streamlit.io/amylikeapple/player-scouting-tool-top-5-european-leagues/main/Hello.py/📊 _Player_Comparison_Tool)'
+link = '[Go To Player Comparison Tool Instead](https://share.streamlit.io/amylikeapple/player-scouting-tool-top-five-leagues/main/Hello.py/Player_Comparison_Tool)'
 st.markdown(link,unsafe_allow_html=True)
 
 df_selection = df_player.query(
@@ -445,6 +445,7 @@ fila = st.selectbox(
     index=1
 )
 fig = px.violin(df_selection, y='xG',hover_data=['Player Name'],points='all',box=True,color=fila)
+fig.update_layout(legend=dict(orientation='h'))
 st.plotly_chart(fig, use_container_width=True)
 
 attcol1,attcol2,attcol3 = st.columns([1,2,1])
@@ -480,6 +481,7 @@ filb = st.selectbox(
     index=1
 )
 fig2 = px.violin(df_selection, y='xA',hover_data=['Player Name'],points='all',box=True,color=filb)
+fig2.update_layout(legend=dict(orientation='h'))
 st.plotly_chart(fig2, use_container_width=True)
 
 bucol1,bucol2,bucol3 = st.columns([1,2,1])
@@ -507,6 +509,7 @@ fild = st.selectbox(
     index=1
 )
 fig3 = px.violin(df_selection, y='Tkls OOP',hover_data=['Player Name'],points='all',box=True,color=fild)
+fig3.update_layout(legend=dict(orientation='h'))
 st.plotly_chart(fig3, use_container_width=True)
 
 defcol1,defcol2,defcol3 = st.columns([1,2,1])
@@ -541,6 +544,7 @@ fild = st.selectbox(
     index=1
 )
 fig4 = px.violin(df_selection, y='Presses OOP',hover_data=['Player Name'],points='all',box=True,color=fild)
+fig4.update_layout(legend=dict(orientation='h'))
 st.plotly_chart(fig4, use_container_width=True)
 
 presscol1,presscol2,presscol3 = st.columns([1,2,1])
@@ -562,6 +566,7 @@ filp = st.selectbox(
     index=1
 )
 fig5 = px.violin(df_selection, y='Att Pen Touches',hover_data=['Player Name'],points='all',box=True,color=filp)
+fig5.update_layout(legend=dict(orientation='h'))
 st.plotly_chart(fig5, use_container_width=True)
 
 posscol1,posscol2,posscol3 = st.columns([1,2,1])
