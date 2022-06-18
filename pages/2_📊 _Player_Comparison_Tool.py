@@ -1,5 +1,6 @@
 #%%
 from bs4 import BeautifulSoup
+from matplotlib.pyplot import margins
 import pandas as pd
 from pyparsing import col
 from sqlalchemy import column
@@ -82,21 +83,21 @@ st.dataframe(df_player_two.style.set_precision(2))
 #---CREATE RADAR CHART---
 #%%
 list1 = list(df_player_one.columns)[5:]
-columns1 = ['xG per 90 Rank',
- 'Sh/90 Rank',
- 'xG per Shot Rank',
- 'xA per 90 Rank',
- 'KP per 90 Rank',
- 'Progessive Passes per 90 Rank',
- 'Tackles per 90 Rank',
- 'Tackles OOP Rank',
- 'Tackles Att 3rd % Rank',
- 'Presses per 90 Rank',
- 'Presses OOP Rank',
- 'Presses Att 3rd % Rank',
- 'Touches per 90 Rank',
- 'Att Pen Touches per 90 Rank',
- 'Progressive Passes Received/90 Rank']
+columns1 = ['xG',
+ 'Shots',
+ 'xG/Shot',
+ 'xA',
+ 'Key Passes',
+ 'Prog Passes',
+ 'Tackles',
+ 'Tackles OOP ',
+ 'Tackles Att 3rd %',
+ 'Presses ',
+ 'Presses OOP ',
+ 'Presses Att 3rd % ',
+ 'Touches',
+ 'Att Pen Touches',
+ 'Prog Passes Received']
 
 fig = px.bar_polar(
     r=[df_player_one[list1[0]].values[0],
@@ -121,22 +122,25 @@ fig = px.bar_polar(
     range_r=[0,1]
 )
 
+fig.update_layout(font=dict(size=10),margin_autoexpand=False,margin=dict(l=120, r=60, t=10, b=10),modebar_remove=['zoom', 'select'],dragmode = False)
+
+
 list2 = list(df_player_two.columns)[5:]
-columns2 = ['xG per 90 Rank',
- 'Sh/90 Rank',
- 'xG per Shot Rank',
- 'xA per 90 Rank',
- 'KP per 90 Rank',
- 'Progessive Passes per 90 Rank',
- 'Tackles per 90 Rank',
- 'Tackles OOP Rank',
- 'Tackles Att 3rd % Rank',
- 'Presses per 90 Rank',
- 'Presses OOP Rank',
- 'Presses Att 3rd % Rank',
- 'Touches per 90 Rank',
- 'Att Pen Touches per 90 Rank',
- 'Progressive Passes Received/90 Rank']
+columns2 = ['xG',
+ 'Shots',
+ 'xG/Shot',
+ 'xA',
+ 'Key Passes',
+ 'Prog Passes',
+ 'Tackles',
+ 'Tackles OOP ',
+ 'Tackles Att 3rd %',
+ 'Presses ',
+ 'Presses OOP ',
+ 'Presses Att 3rd % ',
+ 'Touches',
+ 'Att Pen Touches',
+ 'Prog Passes Received']
 
 fig2 = px.bar_polar(
     r=[df_player_two[list1[0]].values[0],
@@ -157,10 +161,11 @@ fig2 = px.bar_polar(
     ],
     theta=columns2,
     template="plotly_dark",
-    color_discrete_sequence= px.colors.sequential.deep,
+    color_discrete_sequence= px.colors.sequential.Pinkyl,
     range_r=[0,1]
 )
 
+fig2.update_layout(font=dict(size=10),margin_autoexpand=False,margin=dict(l=120, r=60, t=10, b=10),modebar_remove=['zoom', 'select'],dragmode = False)
 
 left_column1, right_column1 = st.columns(2)
 with left_column1:

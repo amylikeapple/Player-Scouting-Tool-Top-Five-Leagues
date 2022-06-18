@@ -273,7 +273,7 @@ fila = st.selectbox(
     index=1
 )
 fig = px.violin(df_selection, y='xG',hover_data=['Player Name'],points='all',box=True,color=fila)
-fig.update_layout(legend=dict(orientation='h'), margin=dict(l=10, r=10, t=10, b=10))
+fig.update_layout(legend=dict(orientation='h'), margin=dict(l=10, r=10, t=10, b=10),modebar_remove=['zoom', 'select'],dragmode = False)
 st.plotly_chart(fig, use_container_width=True)
 
 attcol1,attcol2,attcol3 = st.columns([1,2,1])
@@ -325,7 +325,7 @@ filb = st.selectbox(
     index=1
 )
 fig2 = px.violin(df_selection, y='xA',hover_data=['Player Name'],points='all',box=True,color=filb)
-fig2.update_layout(legend=dict(orientation='h'), margin=dict(l=10, r=10, t=10, b=10))
+fig2.update_layout(legend=dict(orientation='h'), margin=dict(l=10, r=10, t=10, b=10),modebar_remove=['zoom', 'select'],dragmode = False)
 st.plotly_chart(fig2, use_container_width=True)
 
 bucol1,bucol2,bucol3 = st.columns([1,2,1])
@@ -373,7 +373,7 @@ fild = st.selectbox(
     index=1
 )
 fig3 = px.violin(df_selection, y='Tkls OOP',hover_data=['Player Name'],points='all',box=True,color=fild)
-fig3.update_layout(legend=dict(orientation='h'), margin=dict(l=10, r=10, t=10, b=10))
+fig3.update_layout(legend=dict(orientation='h'), margin=dict(l=10, r=10, t=10, b=10),modebar_remove=['zoom', 'select'],dragmode = False)
 st.plotly_chart(fig3, use_container_width=True)
 
 defcol1,defcol2,defcol3 = st.columns([1,2,1])
@@ -423,7 +423,7 @@ fild = st.selectbox(
     index=1
 )
 fig4 = px.violin(df_selection, y='Presses OOP',hover_data=['Player Name'],points='all',box=True,color=fild)
-fig4.update_layout(legend=dict(orientation='h'), margin=dict(l=10, r=10, t=10, b=10))
+fig4.update_layout(legend=dict(orientation='h'), margin=dict(l=10, r=10, t=10, b=10),modebar_remove=['zoom', 'select'],dragmode = False)
 st.plotly_chart(fig4, use_container_width=True)
 
 presscol1,presscol2,presscol3 = st.columns([1,2,1])
@@ -461,7 +461,7 @@ filp = st.selectbox(
     index=1
 )
 fig5 = px.violin(df_selection, y='Att Pen Touches',hover_data=['Player Name'],points='all',box=True,color=filp)
-fig5.update_layout(legend=dict(orientation='h'), margin=dict(l=10, r=10, t=10, b=10))
+fig5.update_layout(legend=dict(orientation='h'), margin=dict(l=10, r=10, t=10, b=10),modebar_remove=['zoom', 'select'],dragmode = False)
 st.plotly_chart(fig5, use_container_width=True)
 
 posscol1,posscol2,posscol3 = st.columns([1,2,1])
