@@ -38,50 +38,66 @@ st.header('🔎 Player Scouting Tool')
 st.markdown("""**Help your favourite team find the right player!**""")
 
 with st.expander('🛎️ Click here for a quick guide'):
-    st.markdown(""" """)
-    st.text('1) This tool is divided into 5 sections: Attacking, Buildup, Defending, Pressing and Attacking Position.')
-    st.markdown(""" """)
-    st.text('2) To find players in a specific league, team or position, utilize the General filters.')
-    st.markdown(""" """)
-    st.text('3) To find players who excel at certain attributes, utilize the Attribute filters.')
-    st.markdown(""" """)
-    st.text('4) Untick "Select All" boxes when filtering. To reset, retick respective boxes.')
-    st.markdown(""" """)
-    st.text('5) Every section has a violin plot where you can get a quick sense of player percentile ranks.')
-    st.text('You have the ability to categorize by Position, Competition or Squad.')
-    st.text('There will also be a table of that shows the players important sub-metrics.')
-    st.markdown("""-----""")
-    st.text('Not interested in filtering? Scroll down and dive straight into the data :)')
-    st.markdown(""" """)
-    st.text('Have fun being a scout & analyst!')
-    # st.markdown(
-    #     """
-    #     1) This tool is divided into 5 sections: Attacking, Buildup, Defending, Pressing and Attacking Position.
-        
-    #     2) To find players in a specific league, team or position, utilize the General filters. Remember to untick the "Select All" boxes.
+    st.markdown(''' ''')
+    # st.markdown(""" """)
+    # st.markdown('1) This tool is divided into 5 sections: Attacking, Buildup, Defending, Pressing and Attacking Position.')
+    # st.markdown(""" """)
+    # st.text('2) To find players in a specific league, team or position, utilize the General filters.')
+    # st.markdown(""" """)
+    # st.text('3) To find players who excel at certain attributes, utilize the Attribute filters.')
+    # st.markdown(""" """)
+    # st.text('4) Untick "Select All" boxes when filtering. To reset, retick respective boxes.')
+    # st.markdown(""" """)
+    # st.text('5) Every section has a violin plot where you can get a quick sense of player percentile ranks.')
+    # st.text('You have the ability to categorize by Position, Competition or Squad.')
+    # st.text('There will also be a table of that shows the players important sub-metrics.')
+    # st.markdown("""-----""")
+    # st.text('Not interested in filtering? Scroll down and dive straight into the data :)')
+    # st.markdown(""" """)
+    # st.text('Have fun being a scout & analyst!')
+    st.markdown(
+        """
+        1) This tool is divided into 5 sections: Attacking, Buildup, Defending, Pressing and Attacking Position.
+    """)
 
-    #     3) To find players who excel at certain attributes, utilize the Attribute filters. Untick the "Select All" box.
+    st.markdown(''' ''') 
 
-    #     4) To reset any filter, retick the respective "Select All" boxes.
+    st.markdown( '''2) To find players in a specific league, team or position, utilize the General filters.''')
 
-    #     5) Every section has a violin plot where you can get a quick sense of player percentile ranks.
+    st.markdown(''' ''') 
 
-    #         You have the ability to categorize by Position, Competition or Squad.
+    st.markdown('''3) To find players who excel at certain attributes, utilize the Attribute filters.''')
 
-    #         There will also be a table of that shows the players important sub-metrics.
-    #     -----
-    #     Not interested in filtering? Scroll down and dive straight into the data :)
+    st.markdown(''' ''')
 
-    #     Have fun being a scout & analyst!
+    st.markdown('''4) Untick "Select All" boxes when filtering. To reset, retick respective boxes.''')
+
+    st.markdown(''' ''')
+
+    st.markdown('''    
+        5) Every section has a violin plot where you can get a quick sense of player percentile ranks.
+
+            You have the ability to categorize by Position, Competition or Squad.
+
+            There will also be a table of that shows the players important sub-metrics.
+        '''
+    )
+
+    st.markdown('''
+        -----
+        Not interested in filtering? Scroll down and dive straight into the data :)
+
+        Have fun being a scout & analyst!
 
 
-    #     """
-    # )
+        '''
+    )
 
 # ----- FILTERS ------
 # st.sidebar.header('Filters')
 
 with st.expander('⬇️ Click here for General Filters'):
+    st.markdown(''' ''') 
     st.markdown("""
         **General Filters**
 
@@ -152,9 +168,10 @@ with st.expander('⬇️ Click here for General Filters'):
     st.markdown("""
     
     """)
-with st.expander('🦾 Click here for Attribute Filters'): 
+with st.expander('🦾 Click here for Attribute Filters'):
+    st.markdown(''' ''') 
     st.markdown("""**Attribute Filters** (min value: 0.0, max value: 1.0)""")
-    st.text('Eg: Entering 0.8 would mean you are looking for players in the top 80th percentile and above.')
+    st.markdown('''_Eg: Entering 0.8 means looking for players in the 80th percentile and above_''')
     st.markdown("""-----""") 
 
     left_column4, mid_column4, right_column4,col4 = st.columns(4)
@@ -231,20 +248,19 @@ carries = df_player['Carries'].quantile(0.90)
 
 # ----- XG TABLES ------
 
-st.header('Goal Threat (Per 90 min)')
+st.header('[A] Goal Threat Per 90 min')
+with st.expander('❗ GRAPH TIPS'):
+    st.markdown("""
+                1) Double click on a legend to focus on one category.
+                2) Hover over the dots for the player name.
+                3) On mobile & zoomed in by accident? Double tap on the chart to reset zoom.
+                4) Be patient, the graph will load :)
+
+    """)
+st.markdown("""
+
+""")
 st.markdown("""**xG/90 Percentiles in Big 5 Leagues**""")
-st.markdown("""
-            Graph Tips:
-
-            1) Double click on a legend to focus on one category.
-            2) Hover over the dots for the player name.
-            3) On mobile & zoomed in by accident? Double tap on the chart to reset zoom.
-            4) Be patient, the graph will load :)
-
-""")
-st.markdown("""
-
-""")
 fila = st.selectbox(
     "Categorize xG by:",
     options=['Pos','Competition','Squad'],
@@ -295,7 +311,7 @@ with attcol2:
 # ----- BUILD UP TABLES ------
 buildup = ['Player Name','Pos','Squad','Games','xG'] + list(df_selection.columns)[10:18]
 
-st.header('Build Up (Per 90 min)')
+st.header('[B] Build Up Per 90 min')
 st.markdown("""**xA/90 Percentiles in Big 5 Leagues**""")
 filb = st.selectbox(
     "Categorize xA by:",
@@ -343,7 +359,7 @@ with bucol2:
 defending = ['Player Name','Pos','Squad','Games','xG'] + list(df_selection.columns)[18:24]
 pressing = ['Player Name','Pos','Squad','Games','xG'] + list(df_selection.columns)[24:30]
 
-st.header('Defending (Per 90 min)')
+st.header('[C] Defending Per 90 min')
 st.markdown("""**Tackles Out Of Poss Percentiles in Big 5 Leagues**""")
 fild = st.selectbox(
     "Categorize Tackles OOP by:",
@@ -393,7 +409,7 @@ with defcol2:
 # ----- PRESSING TABLES ------
 pressing = ['Player Name','Pos','Squad','Games','xG'] + list(df_selection.columns)[24:30]
 
-st.header('Pressing (Per 90 min)')
+st.header('[D] Pressing Per 90 min')
 st.markdown("""**Presses Out Of Possession Percentiles in Big 5 Leagues**""")
 fild = st.selectbox(
     "Categorize Presses OOP by:",
@@ -431,7 +447,7 @@ with presscol2:
 # ----- POSSESION TABLES ------
 possession = ['Player Name','Pos','Squad','Games','xG'] + list(df_selection.columns)[31:35]
 
-st.header('Attacking Position (Per 90 min)')
+st.header('[E] Attacking Position Per 90 min')
 st.markdown("""**Att Penalty Touches Percentiles in Big 5 Leagues**""")
 filp = st.selectbox(
     "Categorize Attacking Penalty Touches/90 by:",
