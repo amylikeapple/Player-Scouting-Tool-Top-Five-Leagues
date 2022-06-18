@@ -25,6 +25,12 @@ def get_data(url):
 
 df_player = get_data(url)
 
+df_player = df_player[['Player Name', 'Pos', 'Squad', 'Competition', 'Games','xG Percentile', 'Shots/90 Percentile',
+       'xG/Shot Percentile','xA Percentile','Key Passes Percentile','Prog Pass Percentile','Tkl Percentile','Tkls OOP Percentile',
+       'T_Att 3rd % Percentile','Press Percentile',
+       'Presses OOP Percentile','P_Att 3rd % Percentile','Touches Percentile',
+       'Att Pen Touches Percentile', 'Prog Receives Percentile',]]
+
 #---CREATE APP---
 #%%
 # st.set_page_config(
@@ -69,13 +75,13 @@ df_player_two = df_player.query(
 )
 # %%
 
-st.dataframe(df_player_one.style.set_precision((2)))
+st.dataframe(df_player_one.style.set_precision(2))
 st.dataframe(df_player_two.style.set_precision(2))
 
 
 #---CREATE RADAR CHART---
 #%%
-list1 = list(df_player_one.columns)[22:37]
+list1 = list(df_player_one.columns)[5:]
 columns1 = ['xG per 90 Rank',
  'Sh/90 Rank',
  'xG per Shot Rank',
@@ -88,8 +94,8 @@ columns1 = ['xG per 90 Rank',
  'Presses per 90 Rank',
  'Presses OOP Rank',
  'Presses Att 3rd % Rank',
+ 'Touches per 90 Rank',
  'Att Pen Touches per 90 Rank',
- 'Att 3rd Touches per 90 Rank',
  'Progressive Passes Received/90 Rank']
 
 fig = px.bar_polar(
@@ -115,7 +121,7 @@ fig = px.bar_polar(
     range_r=[0,1]
 )
 
-list2 = list(df_player_two.columns)[22:37]
+list2 = list(df_player_two.columns)[5:]
 columns2 = ['xG per 90 Rank',
  'Sh/90 Rank',
  'xG per Shot Rank',
@@ -128,8 +134,8 @@ columns2 = ['xG per 90 Rank',
  'Presses per 90 Rank',
  'Presses OOP Rank',
  'Presses Att 3rd % Rank',
+ 'Touches per 90 Rank',
  'Att Pen Touches per 90 Rank',
- 'Att 3rd Touches per 90 Rank',
  'Progressive Passes Received/90 Rank']
 
 fig2 = px.bar_polar(

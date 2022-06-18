@@ -169,7 +169,7 @@ with st.expander('🦾 Click here for Attribute Filters'):
             "Presses Out Of Poss Perc More Than",
             min_value=df_player['Presses OOP Percentile'].min(),
             max_value=df_player['Presses OOP Percentile'].max(),
-            value=0.2
+            value=0.03
         )
 
     defaultsetting = st.checkbox('Default ALL Percentiles Setting (Uncheck When Filtering)',value=True)
@@ -177,7 +177,7 @@ with st.expander('🦾 Click here for Attribute Filters'):
         percone = 0.2
         perctwo = 0.2
         percthree = 0.2
-        percfour = 0.2
+        percfour = 0.03
 
 link = '[Go To Player Comparison Tool Instead](https://share.streamlit.io/amylikeapple/player-scouting-tool-top-five-leagues/main/Hello.py/Player_Comparison_Tool)'
 st.markdown(link,unsafe_allow_html=True)
