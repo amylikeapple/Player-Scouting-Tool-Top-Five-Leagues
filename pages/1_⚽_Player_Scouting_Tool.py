@@ -82,7 +82,12 @@ with st.expander('🛎️ Click here for a quick guide'):
 # st.sidebar.header('Filters')
 
 with st.expander('⬇️ Click here for General Filters'):
-    st.markdown("""**General Filters**""")
+    st.markdown("""
+        **General Filters**
+
+        ---
+
+    """) 
 
     top1, top2 = st.columns(2)
 
@@ -108,7 +113,9 @@ with st.expander('⬇️ Click here for General Filters'):
         all_options4 = st.checkbox('Select All Leagues (Uncheck when filtering)',value=True)
 
         if all_options4:
-            league = list(df_player['Competition'].unique())    
+            league = list(df_player['Competition'].unique())
+
+    st.markdown("""-----""")    
 
     left_column, mid_column, right_column = st.columns(3)
 
@@ -147,10 +154,8 @@ with st.expander('⬇️ Click here for General Filters'):
     """)
 with st.expander('🦾 Click here for Attribute Filters'): 
     st.markdown("""**Attribute Filters** (min value: 0.0, max value: 1.0)""")
-    st.markdown("""Eg: Entering 0.8 would mean you are looking for players in the top 80th percentile and above.""")
-    st.markdown("""
-    
-    """)
+    st.text('Eg: Entering 0.8 would mean you are looking for players in the top 80th percentile and above.')
+    st.markdown("""-----""") 
 
     left_column4, mid_column4, right_column4,col4 = st.columns(4)
 
