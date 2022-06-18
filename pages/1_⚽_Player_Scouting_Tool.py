@@ -38,29 +38,45 @@ st.header('🔎 Player Scouting Tool')
 st.markdown("""**Help your favourite team find the right player!**""")
 
 with st.expander('🛎️ Click here for a quick guide'):
-    st.markdown(
-        """
-        1) This tool is divided into 5 sections: Attacking, Buildup, Defending, Pressing and Attacking Position.
+    st.markdown(""" """)
+    st.text('1) This tool is divided into 5 sections: Attacking, Buildup, Defending, Pressing and Attacking Position.')
+    st.markdown(""" """)
+    st.text('2) To find players in a specific league, team or position, utilize the General filters.')
+    st.markdown(""" """)
+    st.text('3) To find players who excel at certain attributes, utilize the Attribute filters.')
+    st.markdown(""" """)
+    st.text('4) Untick "Select All" boxes when filtering. To reset, retick respective boxes.')
+    st.markdown(""" """)
+    st.text('5) Every section has a violin plot where you can get a quick sense of player percentile ranks.')
+    st.text('You have the ability to categorize by Position, Competition or Squad.')
+    st.text('There will also be a table of that shows the players important sub-metrics.')
+    st.markdown("""-----""")
+    st.text('Not interested in filtering? Scroll down and dive straight into the data :)')
+    st.markdown(""" """)
+    st.text('Have fun being a scout & analyst!')
+    # st.markdown(
+    #     """
+    #     1) This tool is divided into 5 sections: Attacking, Buildup, Defending, Pressing and Attacking Position.
         
-        2) To find players in a specific league, team or position, utilize the General filters. Remember to untick the "Select All" boxes.
+    #     2) To find players in a specific league, team or position, utilize the General filters. Remember to untick the "Select All" boxes.
 
-        3) To find players who excel at certain attributes, utilize the Attribute filters. Untick the "Select All" box.
+    #     3) To find players who excel at certain attributes, utilize the Attribute filters. Untick the "Select All" box.
 
-        4) To reset any filter, retick the respective "Select All" boxes.
+    #     4) To reset any filter, retick the respective "Select All" boxes.
 
-        5) Every section has a violin plot where you can get a quick sense of player percentile ranks.
+    #     5) Every section has a violin plot where you can get a quick sense of player percentile ranks.
 
-            You have the ability to categorize by Position, Competition or Squad.
+    #         You have the ability to categorize by Position, Competition or Squad.
 
-            There will also be a table of that shows the players' important sub-metrics.
-        -----
-        Not interested in filtering? Scroll down and dive straight into the data :)
+    #         There will also be a table of that shows the players important sub-metrics.
+    #     -----
+    #     Not interested in filtering? Scroll down and dive straight into the data :)
 
-        Have fun being a scout & analyst!
+    #     Have fun being a scout & analyst!
 
 
-        """
-    )
+    #     """
+    # )
 
 # ----- FILTERS ------
 # st.sidebar.header('Filters')
