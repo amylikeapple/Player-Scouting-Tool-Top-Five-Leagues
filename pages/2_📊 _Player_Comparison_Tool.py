@@ -122,7 +122,7 @@ fig = px.bar_polar(
     range_r=[0,1]
 )
 
-fig.update_layout(font=dict(size=10),margin_autoexpand=False,margin=dict(l=120, r=60, t=10, b=10),modebar_remove=['zoom', 'select'],dragmode = False)
+fig.update_layout(font=dict(size=10),margin_autoexpand=False,margin=dict(l=110, r=60, t=10, b=10),modebar_remove=['zoom', 'select'],dragmode = False)
 
 
 list2 = list(df_player_two.columns)[5:]
@@ -165,7 +165,7 @@ fig2 = px.bar_polar(
     range_r=[0,1]
 )
 
-fig2.update_layout(font=dict(size=10),margin_autoexpand=False,margin=dict(l=120, r=60, t=10, b=10),modebar_remove=['zoom', 'select'],dragmode = False)
+fig2.update_layout(font=dict(size=10),margin_autoexpand=False,margin=dict(l=110, r=60, t=10, b=10),modebar_remove=['zoom', 'select'],dragmode = False)
 
 left_column1, right_column1 = st.columns(2)
 with left_column1:
